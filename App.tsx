@@ -1,21 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+/** @format */
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import React from 'react'
+import {useFonts,Oswald_400Regular} from "@expo-google-fonts/oswald"
+import {Lato_400Regular} from "@expo-google-fonts/lato"
+import { ThemeProvider } from 'styled-components/native';
+import { RestaurantsScreen } from './src/features/restaurants/screens/restaurants.screen';
+import { AppTheme } from './src/infrastructure/theme';
+
+export default function App(): JSX.Element {
+ useFonts( { Oswald_400Regular } )
+  useFonts( { Lato_400Regular } )
+  
+	return (
+    <>
+      <ThemeProvider theme={AppTheme}>
+			  <RestaurantsScreen/>
+      </ThemeProvider>
+		</>
+	)
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
