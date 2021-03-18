@@ -1,6 +1,5 @@
 /** @format */
 
-import { useState } from 'react'
 
 type MaximumRating = 5 | 10
 interface Props {
