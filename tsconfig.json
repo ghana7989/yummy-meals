@@ -13,6 +13,7 @@
     "strict": true,
     "types": [
       "styled-components-react-native"
-    ]
+    ],
+    "declaration": true
   }
 }

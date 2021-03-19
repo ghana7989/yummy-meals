@@ -10,6 +10,7 @@ import { NavigationContainer, RouteProp } from '@react-navigation/native'
 import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { AppSafeArea } from './src/components/utils/safe-area.component'
 import { Ionicons } from '@expo/vector-icons'
+import { RestaurantsContextProvider } from './src/services/restaurant/restaurants.context'
 
 const Tab = createBottomTabNavigator()
 
@@ -35,13 +36,13 @@ const createScreenOptions:
 			route: RouteProp<Record<string, object | undefined>, string>
 			navigation: any
 	  }) => BottomTabNavigationOptions)
-  | undefined = ( { route: { name } } ) => {
-		// @ts-expect-error
-		const iconName = TAB_ICON[name]
-		return {
-			tabBarIcon: ({ size, color }) => <Ionicons name={iconName} size={size} color={color} />,
-		}
+	| undefined = ({ route: { name } }) => {
+	// @ts-expect-error
+	const iconName = TAB_ICON[name]
+	return {
+		tabBarIcon: ({ size, color }) => <Ionicons name={iconName} size={size} color={color} />,
 	}
+}
 
 const MyTabs = () => (
 	<Tab.Navigator
@@ -67,9 +68,11 @@ export default function App(): JSX.Element {
 	}
 	return (
 		<>
-			<NavigationContainer>
-				<MyTabs />
-			</NavigationContainer>
+			<RestaurantsContextProvider>
+				<NavigationContainer>
+					<MyTabs />
+				</NavigationContainer>
+			</RestaurantsContextProvider>
 		</>
 	)
 }

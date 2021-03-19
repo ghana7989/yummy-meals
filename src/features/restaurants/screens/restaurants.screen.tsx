@@ -1,18 +1,27 @@
 /** @format */
 
-import React, { FC, useState } from 'react'
-import { FlatList } from 'react-native'
+import React, { FC, useState, useContext } from 'react'
+import { ActivityIndicator, FlatList, View } from 'react-native'
 import { Searchbar } from 'react-native-paper'
 import styled from 'styled-components/native'
 import { Spacer } from '../../../components/spacer/spacer.component'
 import { AppSafeArea } from '../../../components/utils/safe-area.component'
 import { AppTheme } from '../../../infrastructure/theme'
+import { RestaurantsContext } from '../../../services/restaurant/restaurants.context'
 import { RestaurantInfoCard } from '../components/restaurant-info-card.component'
 
 interface Props {}
 
 export const Search = styled.View`
 	padding: ${AppTheme.spaces['3']};
+`
+export const Loading = styled(ActivityIndicator)`
+	margin-left: -25px;
+`
+export const LoadingContainer = styled.View`
+	position: absolute;
+	top: 50%;
+	left: 50%;
 `
 export const RestaurantList = styled(FlatList).attrs({
 	contentContainerStyle: {
@@ -23,31 +32,26 @@ export const RestaurantList = styled(FlatList).attrs({
 `
 const RestaurantsScreen: FC<Props> = () => {
 	const [searchQuery, setSearchQuery] = useState<string>('')
-
+	const { restaurants, error, isLoading } = useContext(RestaurantsContext)
 	return (
 		<>
 			<AppSafeArea>
+				{isLoading && (
+					<LoadingContainer style={{ position: 'absolute', top: '50%', left: '50%' }}>
+						<Loading size={50} animating={true} color={AppTheme.colors.brand.primary} />
+					</LoadingContainer>
+				)}
 				<Search>
 					<Searchbar value={searchQuery} />
 				</Search>
 				<RestaurantList
-					data={[
-						{ name: 1 },
-						{ name: 2 },
-						{ name: 3 },
-						{ name: 4 },
-						{ name: 5 },
-						{ name: 6 },
-						{ name: 7 },
-						{ name: 8 },
-						{ name: 9 },
-						{ name: 10 },
-						{ name: 11 },
-						{ name: 12 },
-						{ name: 13 },
-						{ name: 14 },
-					]}
-					renderItem={() => <RestaurantInfoCard />}
+					data={restaurants}
+					renderItem={({ item }) => {
+						return (
+							// @ts-expect-error
+							<RestaurantInfoCard restaurant={item} />
+						)
+					}}
 					keyExtractor={(item, index) => index.toString()}
 					ItemSeparatorComponent={() => <Spacer variant='bottomLarge' />}
 				/>
