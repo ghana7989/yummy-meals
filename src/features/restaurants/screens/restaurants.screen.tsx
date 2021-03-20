@@ -9,12 +9,10 @@ import { AppSafeArea } from '../../../components/utils/safe-area.component'
 import { AppTheme } from '../../../infrastructure/theme'
 import { RestaurantsContext } from '../../../services/restaurant/restaurants.context'
 import { RestaurantInfoCard } from '../components/restaurant-info-card.component'
+import { Search } from '../components/search.component'
 
 interface Props {}
 
-export const Search = styled.View`
-	padding: ${AppTheme.spaces['3']};
-`
 export const Loading = styled(ActivityIndicator)`
 	margin-left: -25px;
 `
@@ -31,7 +29,6 @@ export const RestaurantList = styled(FlatList).attrs({
 	/* background-color: tomato; */
 `
 const RestaurantsScreen: FC<Props> = () => {
-	const [searchQuery, setSearchQuery] = useState<string>('')
 	const { restaurants, error, isLoading } = useContext(RestaurantsContext)
 	return (
 		<>
@@ -41,9 +38,7 @@ const RestaurantsScreen: FC<Props> = () => {
 						<Loading size={50} animating={true} color={AppTheme.colors.brand.primary} />
 					</LoadingContainer>
 				)}
-				<Search>
-					<Searchbar value={searchQuery} />
-				</Search>
+				<Search />
 				<RestaurantList
 					data={restaurants}
 					renderItem={({ item }) => {

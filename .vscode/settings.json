@@ -2,6 +2,7 @@
   "files.autoSaveDelay": 10000,
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "cSpell.words": [
-    "camelize"
+    "camelize",
+    "latlng"
   ]
 }

@@ -6,28 +6,18 @@ import camelize from 'camelize'
 import { mockImages } from './mock'
 
 export declare module Restaurant {
-	export interface Location {
-		lat: number
-		lng: number
-	}
-
-	export interface Northeast {
-		lat: number
-		lng: number
-	}
-
-	export interface Southwest {
+	export interface NortheastOrSouthwestOrLocation {
 		lat: number
 		lng: number
 	}
 
 	export interface Viewport {
-		northeast: Northeast
-		southwest: Southwest
+		northeast: NortheastOrSouthwestOrLocation
+		southwest: NortheastOrSouthwestOrLocation
 	}
 
 	export interface Geometry {
-		location: Location
+		location: NortheastOrSouthwestOrLocation
 		viewport: Viewport
 	}
 
@@ -75,8 +65,9 @@ export declare module Restaurant {
 		status: string
 	}
 }
-export function restaurantsRequest(location: keyof typeof mocks = '51.219448,4.402464') {
+export function restaurantsRequest(location: keyof typeof mocks | string = '51.219448,4.402464') {
 	return new Promise((resolve, reject) => {
+		// @ts-expect-error
 		const mock = mocks[location]
 		if (!mock) reject('Not found')
 		resolve(mock)
@@ -93,6 +84,7 @@ export const restaurantsTransform = (
 			})
 			return {
 				...restaurant,
+				address: restaurant.vicinity,
 				isOpenNow: restaurant.opening_hours && restaurant.opening_hours.open_now,
 				isClosedTemporarily: restaurant.business_status === 'CLOSED_TEMPORARILY',
 			}

@@ -11,6 +11,7 @@ import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-nav
 import { AppSafeArea } from './src/components/utils/safe-area.component'
 import { Ionicons } from '@expo/vector-icons'
 import { RestaurantsContextProvider } from './src/services/restaurant/restaurants.context'
+import { LocationContextProvider } from './src/services/location/location.context'
 
 const Tab = createBottomTabNavigator()
 
@@ -68,11 +69,13 @@ export default function App(): JSX.Element {
 	}
 	return (
 		<>
-			<RestaurantsContextProvider>
-				<NavigationContainer>
-					<MyTabs />
-				</NavigationContainer>
-			</RestaurantsContextProvider>
+			<LocationContextProvider>
+				<RestaurantsContextProvider>
+					<NavigationContainer>
+						<MyTabs />
+					</NavigationContainer>
+				</RestaurantsContextProvider>
+			</LocationContextProvider>
 		</>
 	)
 }
