@@ -43,7 +43,7 @@ export declare module Restaurant {
 		icon: string
 		name: string
 		opening_hours: OpeningHours
-		photos: Photo[] | string[]
+		photos: string[]
 		place_id: string
 		plus_code: PlusCode
 		price_level: number

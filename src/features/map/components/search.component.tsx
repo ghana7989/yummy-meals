@@ -8,6 +8,10 @@ import { LocationContext } from '../../../services/location/location.context'
 
 export const SearchContainer = styled.View`
 	padding: ${AppTheme.spaces['3']};
+	position: absolute;
+	z-index: 9;
+	width: 100%;
+	top: 40px;
 `
 const Search: FC = () => {
 	const { keyword, search } = useContext(LocationContext)
@@ -25,6 +29,7 @@ const Search: FC = () => {
 			<SearchContainer>
 				<Searchbar
 					placeholder='Search for a place'
+					icon='map'
 					value={searchQuery}
 					onSubmitEditing={() => {
 						if (search) {

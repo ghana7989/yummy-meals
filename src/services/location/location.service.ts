@@ -20,7 +20,8 @@ export const locationTransform = (result?: LocationResult) => {
 	const {
 		geometry: {
 			location: { lat, lng },
+			viewport,
 		},
 	} = result.results[0]
-	return { lat, lng }
+	return { lat, lng, viewport }
 }

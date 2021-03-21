@@ -52,11 +52,19 @@ const variants: {
 
 export const StyledText = styled.Text`
 	${() => defaultTextStyles(AppTheme)}
-	${({ variant }) => variants[variant](AppTheme)}
+	/* @ts-expect-error */
+	${({ variant }): string => variants[variant](AppTheme)}
 `
 
 type Variant = 'body' | 'label' | 'caption' | 'error' | 'hint'
-export const AppText: FC<{ variant: Variant }> = ({ variant = 'body', children }) => (
-	<StyledText variant={variant}>{children}</StyledText>
+export const AppText: FC<{ variant: Variant; numberOfLines?: number }> = ({
+	variant = 'body',
+	numberOfLines,
+	children,
+	...props
+}) => (
+	<StyledText numberOfLines={numberOfLines} variant={variant} {...props}>
+		{children}
+	</StyledText>
 )
 export default AppText

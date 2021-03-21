@@ -1,7 +1,8 @@
 /** @format */
 
+import { StackNavigationProp } from '@react-navigation/stack'
 import React, { FC, useState, useContext } from 'react'
-import { ActivityIndicator, FlatList, View } from 'react-native'
+import { ActivityIndicator, FlatList, Pressable, TouchableOpacity, View } from 'react-native'
 import { Searchbar } from 'react-native-paper'
 import styled from 'styled-components/native'
 import { Spacer } from '../../../components/spacer/spacer.component'
@@ -10,8 +11,6 @@ import { AppTheme } from '../../../infrastructure/theme'
 import { RestaurantsContext } from '../../../services/restaurant/restaurants.context'
 import { RestaurantInfoCard } from '../components/restaurant-info-card.component'
 import { Search } from '../components/search.component'
-
-interface Props {}
 
 export const Loading = styled(ActivityIndicator)`
 	margin-left: -25px;
@@ -28,7 +27,13 @@ export const RestaurantList = styled(FlatList).attrs({
 })`
 	/* background-color: tomato; */
 `
-const RestaurantsScreen: FC<Props> = () => {
+// @ts-expect-error
+type RestaurantDetailScreenNavigationProp = StackNavigationProp
+
+type Props = {
+	navigation: RestaurantDetailScreenNavigationProp
+}
+const RestaurantsScreen: FC<Props> = ({ navigation }) => {
 	const { restaurants, error, isLoading } = useContext(RestaurantsContext)
 	return (
 		<>
@@ -43,8 +48,11 @@ const RestaurantsScreen: FC<Props> = () => {
 					data={restaurants}
 					renderItem={({ item }) => {
 						return (
-							// @ts-expect-error
-							<RestaurantInfoCard restaurant={item} />
+							<TouchableOpacity
+								onPress={() => navigation.navigate('Restaurant Detail', { restaurant: item })}>
+								{/* @ts-expect-error */}
+								<RestaurantInfoCard restaurant={item} />
+							</TouchableOpacity>
 						)
 					}}
 					keyExtractor={(item, index) => index.toString()}

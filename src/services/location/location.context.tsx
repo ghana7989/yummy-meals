@@ -1,17 +1,21 @@
 /** @format */
 
 import React, { createContext, FC, useEffect, useState } from 'react'
-import { LocationResult, NortheastOrSouthwestOrLocation } from './location.mock'
+import { LocationResult, Viewport } from './location.mock'
 import { locationRequest, locationTransform } from './location.service'
 
 interface InitialProps {
 	isLoading: boolean
 	error: string | null
 	search: null | ((searchQuery: string) => undefined)
-	location: NortheastOrSouthwestOrLocation | null
+	location: LocationContext | null
 	keyword: string
 }
-
+interface LocationContext {
+	lat: number
+	lng: number
+	viewport: Viewport
+}
 export const LocationContext = createContext<InitialProps>({
 	isLoading: false,
 	error: null,
@@ -21,7 +25,7 @@ export const LocationContext = createContext<InitialProps>({
 })
 
 export const LocationContextProvider: FC = ({ children }) => {
-	const [location, setLocation] = useState<NortheastOrSouthwestOrLocation | null>(null)
+	const [location, setLocation] = useState<LocationContext | null>(null)
 	const [keyword, setKeyword] = useState('toronto')
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState(null)
@@ -37,7 +41,6 @@ export const LocationContextProvider: FC = ({ children }) => {
 			.then((result) => {
 				setIsLoading(false)
 				setLocation(result)
-				console.log('result: ', result)
 			})
 			.catch((error) => {
 				setError(error)
