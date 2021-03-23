@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import { List } from 'react-native-paper'
-
 import { AppSafeArea } from '../../../components/utils/safe-area.component'
 import { RestaurantInfoCard } from '../components/restaurant-info-card.component'
 

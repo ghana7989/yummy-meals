@@ -60,34 +60,34 @@ const BottomLarge = styled.View`
 	margin-bottom: ${AppTheme.spaces[3]};
 `
 
-const Spacer: FC<Props> = ({ variant }) => {
+const Spacer: FC<Props> = ({ variant, children }) => {
 	switch (variant) {
 		case 'topMedium':
-			return <TopMedium />
+			return <TopMedium>{children}</TopMedium>
 		case 'topLarge':
-			return <TopLarge />
+			return <TopLarge>{children}</TopLarge>
 		case 'topSmall':
-			return <TopSmall />
+			return <TopSmall>{children}</TopSmall>
 		case 'rightMedium':
-			return <RightMedium />
+			return <RightMedium>{children}</RightMedium>
 		case 'rightLarge':
-			return <RightLarge />
+			return <RightLarge>{children}</RightLarge>
 		case 'rightSmall':
-			return <RightSmall />
+			return <RightSmall>{children}</RightSmall>
 		case 'leftMedium':
-			return <LeftMedium />
+			return <LeftMedium>{children}</LeftMedium>
 		case 'leftLarge':
-			return <LeftLarge />
+			return <LeftLarge>{children}</LeftLarge>
 		case 'leftSmall':
-			return <LeftSmall />
+			return <LeftSmall>{children}</LeftSmall>
 		case 'bottomMedium':
-			return <BottomMedium />
+			return <BottomMedium>{children}</BottomMedium>
 		case 'bottomLarge':
-			return <BottomLarge />
+			return <BottomLarge>{children}</BottomLarge>
 		case 'bottomSmall':
-			return <BottomSmall />
+			return <BottomSmall>{children}</BottomSmall>
 		default:
-			return <View></View>
+			return <View>{children}</View>
 	}
 }
 

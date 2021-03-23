@@ -10,6 +10,7 @@ import AppText from '../typography/text.component'
 
 type Props = {
 	restaurant: Restaurant.Result | undefined
+	isMap: boolean
 }
 const CompactImage = styled.Image`
 	border-radius: 10px;
@@ -30,10 +31,10 @@ const Item = styled.View`
 `
 // const isAndroid = Platform.OS === 'android'
 
-export const CompactRestaurantInfo: FC<Props> = ({ restaurant }) => {
+export const CompactRestaurantInfo: FC<Props> = ({ restaurant, isMap = true }) => {
 	return (
 		<Item>
-			{Platform.OS === 'android' && restaurant ? (
+			{Platform.OS === 'android' && isMap && restaurant ? (
 				<CompactWebview source={{ uri: restaurant?.photos[0] }} />
 			) : (
 				<CompactImage source={{ uri: restaurant?.photos[0] }} />

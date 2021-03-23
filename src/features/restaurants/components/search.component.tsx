@@ -9,7 +9,8 @@ import { LocationContext } from '../../../services/location/location.context'
 export const SearchContainer = styled.View`
 	padding: ${AppTheme.spaces['3']};
 `
-const Search: FC = () => {
+type Props = { isFavouritesToggled: boolean; onFavouritesToggle: () => void }
+const Search: FC<Props> = ({ isFavouritesToggled, onFavouritesToggle }) => {
 	const { keyword, search } = useContext(LocationContext)
 	const [searchQuery, setSearchQuery] = useState<string>(keyword)
 	useEffect(() => {
@@ -20,10 +21,13 @@ const Search: FC = () => {
 	useEffect(() => {
 		setSearchQuery(keyword)
 	}, [keyword])
+
 	return (
 		<>
 			<SearchContainer>
 				<Searchbar
+					icon={isFavouritesToggled ? 'heart' : 'heart-outline'}
+					onIconPress={onFavouritesToggle}
 					placeholder='Search for a place'
 					value={searchQuery}
 					onSubmitEditing={() => {

@@ -8,7 +8,7 @@ export const RestaurantCard = styled(Card)`
 	background-color: ${AppTheme.colors.bg.primary};
 `
 export const RestaurantCardCover = styled(Card.Cover)`
-	padding: ${AppTheme.spaces[2]};
+	padding: ${AppTheme.spaces[3]};
 	background-color: ${AppTheme.colors.bg.primary};
 `
 export const Address = styled.Text`

@@ -8,15 +8,14 @@ import { LocationContext } from '../../../services/location/location.context'
 import { RestaurantsContext } from '../../../services/restaurant/restaurants.context'
 import { Loading, LoadingContainer } from '../../restaurants/screens/restaurants.screen'
 import { MapCallOutComponent } from '../components/map-callout.component'
-
-type Props = {}
+import { StackNavigationProp } from '@react-navigation/stack'
 
 export const Map = styled(MapView)`
 	height: 100%;
 	width: 100%;
 `
 
-const MapScreen: FC<Props> = () => {
+const MapScreen: FC = ({ navigation }: any) => {
 	const { location } = useContext(LocationContext)
 	const { restaurants = [] } = useContext(RestaurantsContext)
 	const [latitudeDelta, setLatitudeDelta] = useState(0)
@@ -53,7 +52,7 @@ const MapScreen: FC<Props> = () => {
 									latitude: restaurant?.geometry.location.lat,
 									longitude: restaurant?.geometry.location.lng,
 								}}>
-								<Callout>
+								<Callout onPress={() => navigation.navigate('RestaurantDetail', { restaurant })}>
 									<MapCallOutComponent restaurant={restaurant} />
 								</Callout>
 							</Marker>
