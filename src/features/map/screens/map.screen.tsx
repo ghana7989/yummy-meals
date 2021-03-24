@@ -52,7 +52,7 @@ const MapScreen: FC = ({ navigation }: any) => {
 									latitude: restaurant?.geometry.location.lat,
 									longitude: restaurant?.geometry.location.lng,
 								}}>
-								<Callout onPress={() => navigation.navigate('RestaurantDetail', { restaurant })}>
+								<Callout onPress={() => navigation.navigate('Restaurant Detail', { restaurant })}>
 									<MapCallOutComponent restaurant={restaurant} />
 								</Callout>
 							</Marker>
