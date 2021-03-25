@@ -1,8 +1,8 @@
 /** @format */
 import React from 'react'
-import { FC } from 'react'
+import {FC} from 'react'
 import styled from 'styled-components/native'
-import { AppTheme } from '../../infrastructure/theme'
+import {AppTheme} from '../../infrastructure/theme'
 
 const defaultTextStyles = (theme: typeof AppTheme) => `
   font-family: ${theme.fonts.body};
@@ -53,16 +53,17 @@ const variants: {
 export const StyledText = styled.Text`
 	${() => defaultTextStyles(AppTheme)}
 	/* @ts-expect-error */
-	${({ variant }): string => variants[variant](AppTheme)}
+	${({variant}): string => variants[variant](AppTheme)}
 `
 
 type Variant = 'body' | 'label' | 'caption' | 'error' | 'hint'
-export const AppText: FC<{ variant: Variant; numberOfLines?: number }> = ({
+export const AppText: FC<{variant: Variant; numberOfLines?: number}> = ({
 	variant = 'body',
 	numberOfLines,
 	children,
 	...props
 }) => (
+	/* @ts-expect-error */
 	<StyledText numberOfLines={numberOfLines} variant={variant} {...props}>
 		{children}
 	</StyledText>

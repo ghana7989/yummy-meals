@@ -12,6 +12,7 @@ import { Navigation } from './src/infrastructure/navigation'
 import { FavouritesContextProvider } from './src/services/favourites/favourites.context'
 import { LocationContextProvider } from './src/services/location/location.context'
 import { RestaurantsContextProvider } from './src/services/restaurant/restaurants.context'
+import { AuthContextProvider } from './src/services/auth/auth.context'
 const firebaseConfig = {
 	apiKey: 'AIzaSyAWdsQJu8a97d4yM0omshNfC3461-ynZTg',
 	authDomain: 'meals-plan-95b5b.firebaseapp.com',
@@ -30,13 +31,15 @@ export default function App(): JSX.Element {
 	}
 	return (
 		<>
-			<FavouritesContextProvider>
-				<LocationContextProvider>
-					<RestaurantsContextProvider>
-						<Navigation />
-					</RestaurantsContextProvider>
-				</LocationContextProvider>
-			</FavouritesContextProvider>
+			<AuthContextProvider>
+				<FavouritesContextProvider>
+					<LocationContextProvider>
+						<RestaurantsContextProvider>
+							<Navigation />
+						</RestaurantsContextProvider>
+					</LocationContextProvider>
+				</FavouritesContextProvider>
+			</AuthContextProvider>
 		</>
 	)
 }
