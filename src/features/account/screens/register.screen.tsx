@@ -1,16 +1,86 @@
 /** @format */
 
-import React, {FC} from 'react'
-import {View, Text} from 'react-native'
-import styled from 'styled-components/native'
-import { AccountBackground } from '../components/account.styles';
+import React, {FC, useContext, useState} from 'react'
+import {Text} from 'react-native'
+import {ActivityIndicator, TextInput, Title} from 'react-native-paper'
+import {Spacer} from '../../../components/spacer/spacer.component'
+import AppText from '../../../components/typography/text.component'
+import {AppTheme} from '../../../infrastructure/theme'
+import {AuthContext} from '../../../services/auth/auth.context'
+import {
+	AccountBackground,
+	AccountContainer,
+	AccountCover,
+	AuthButton,
+	AuthInput,
+	ErrorContainer,
+} from '../components/account.styles'
 
 type Props = {}
-const RegisterScreen: FC<Props> = () => {
+const RegisterScreen: FC<Props> = ({navigation}: any) => {
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const [confirmedPassword, setConfirmedPassword] = useState('')
+	const {onRegister, error, isLoading} = useContext(AuthContext)
 	return (
-		<>
-			<AccountBackground></AccountBackground>
-		</>
+		<AccountBackground>
+			<AccountCover />
+			<Title>Meals To Go</Title>
+			<AccountContainer>
+				<AuthInput
+					label='E-mail'
+					value={email}
+					textContentType='emailAddress'
+					keyboardType='email-address'
+					autoCapitalize='none'
+					onChangeText={(u: string) => setEmail(u)}
+				/>
+				<Spacer variant='topLarge'>
+					<AuthInput
+						label='Password'
+						value={password}
+						textContentType='password'
+						secureTextEntry
+						autoCapitalize='none'
+						onChangeText={(p: string) => setPassword(p)}
+					/>
+				</Spacer>
+				<Spacer variant='topLarge'>
+					<AuthInput
+						label='Confirm Password'
+						value={confirmedPassword}
+						textContentType='password'
+						secureTextEntry
+						autoCapitalize='none'
+						onChangeText={(p: string) => setConfirmedPassword(p)}
+					/>
+				</Spacer>
+				{!!error && (
+					<Spacer variant='topLarge'>
+						<ErrorContainer>
+							<AppText variant='error'>{error}</AppText>
+						</ErrorContainer>
+					</Spacer>
+				)}
+				<Spacer variant='topLarge'>
+					{isLoading ? (
+						<ActivityIndicator animating={true} color={AppTheme.colors.brand.primary} />
+					) : (
+						<AuthButton
+							icon='email'
+							mode='contained'
+							onPress={() => onRegister(email, password, confirmedPassword)}>
+							Register
+						</AuthButton>
+					)}
+				</Spacer>
+			</AccountContainer>
+			<Spacer variant='topLarge'>
+				<AuthButton mode='contained' onPress={() => navigation.goBack()}>
+					Back
+				</AuthButton>
+			</Spacer>
+		</AccountBackground>
 	)
 }
 

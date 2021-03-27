@@ -1,16 +1,15 @@
 /** @format */
 
-import {NavigationProp} from '@react-navigation/core'
 import React, {FC} from 'react'
-import {View, Text} from 'react-native'
-import styled from 'styled-components/native'
 import {Spacer} from '../../../components/spacer/spacer.component'
+import LottieView from 'lottie-react-native'
 import {
 	AccountBackground,
 	AccountContainer,
 	AccountCover,
 	AuthButton,
 	Title,
+	AnimationWrapper,
 } from '../components/account.styles'
 
 type Props = {}
@@ -19,6 +18,15 @@ const AccountScreen: FC<Props> = ({navigation}: any) => {
 		<>
 			<AccountBackground>
 				<AccountCover />
+				<AnimationWrapper>
+					<LottieView
+						key='animation'
+						loop
+						autoPlay
+						resizeMode='cover'
+						source={require('../../../../assets/watermelon.json')}
+					/>
+				</AnimationWrapper>
 				<Title variant='body'>Meals To Go</Title>
 				<AccountContainer>
 					<AuthButton

@@ -11,7 +11,7 @@ import {AccountNavigator} from './account.navigator'
 import {AppNavigator} from './app.navigator'
 
 export const Navigation = () => {
-	const {isAuthenticated} = useContext(AuthContext)
+	const {isAuthenticated, user} = useContext(AuthContext)
 
 	return (
 		<NavigationContainer>

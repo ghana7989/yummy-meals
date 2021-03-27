@@ -2,9 +2,10 @@
 
 import React, {FC, useContext, useState} from 'react'
 import {Text} from 'react-native'
-import {TextInput, Title} from 'react-native-paper'
+import {ActivityIndicator, TextInput, Title} from 'react-native-paper'
 import {Spacer} from '../../../components/spacer/spacer.component'
 import AppText from '../../../components/typography/text.component'
+import {AppTheme} from '../../../infrastructure/theme'
 import {AuthContext} from '../../../services/auth/auth.context'
 import {
 	AccountBackground,
@@ -19,7 +20,7 @@ type Props = {}
 const LoginScreen: FC<Props> = ({navigation}: any) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const {onLogin, error} = useContext(AuthContext)
+	const {onLogin, error, isLoading, isAuthenticated} = useContext(AuthContext)
 	return (
 		<AccountBackground>
 			<AccountCover />
@@ -34,7 +35,7 @@ const LoginScreen: FC<Props> = ({navigation}: any) => {
 					onChangeText={(u: string) => setEmail(u)}
 				/>
 				<Spacer variant='topLarge'>
-          <AuthInput
+					<AuthInput
 						label='Password'
 						value={password}
 						textContentType='password'
@@ -51,12 +52,13 @@ const LoginScreen: FC<Props> = ({navigation}: any) => {
 					</Spacer>
 				)}
 				<Spacer variant='topLarge'>
-					<AuthButton
-						icon='lock-open-outline'
-						mode='contained'
-						onPress={() => onLogin(email, password)}>
-						Login
-					</AuthButton>
+					{isLoading ? (
+						<ActivityIndicator animating={true} color={AppTheme.colors.brand.primary} />
+					) : (
+						<AuthButton icon='email' mode='contained' onPress={() => onLogin(email, password)}>
+							Login
+						</AuthButton>
+					)}
 				</Spacer>
 			</AccountContainer>
 			<Spacer variant='topLarge'>
